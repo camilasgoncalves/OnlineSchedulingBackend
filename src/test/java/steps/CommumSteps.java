@@ -5,6 +5,8 @@ import io.cucumber.java.en.Then;
 import org.junit.jupiter.api.Assertions;
 import utils.SharedInstance;
 
+import java.util.Arrays;
+
 public class CommumSteps {
 
     @Then("deve retornar status code {int}")
@@ -18,10 +20,17 @@ public class CommumSteps {
     public void errorMessage(String mensagemErro) {
         String responseBody = SharedInstance.getInstance().getResponse().getBody().asString();
 
+        String[] mensagensPossiveis = mensagemErro.split("\\|\\|");
+
+        boolean encontrouMensagem = Arrays.stream(mensagensPossiveis)
+                .map(String::trim)
+                .anyMatch(responseBody::contains);
+
         Assertions.assertTrue(
-                responseBody.contains(mensagemErro),
-                "Mensagem esperada não encontrada no body.\nEsperado conter: \""
-                        + mensagemErro + "\"\nBody completo:\n" + responseBody
+                encontrouMensagem,
+                "Nenhuma das mensagens esperadas foi encontrada no body.\n" +
+                        "Esperado conter uma de: " + Arrays.toString(mensagensPossiveis) +
+                        "\nBody completo:\n" + responseBody
         );
     }
 }
