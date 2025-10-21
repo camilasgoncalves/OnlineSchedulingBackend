@@ -1,31 +1,32 @@
 Feature: User
 
-  @Test @Usuario @Regressao
+  @Test @User @Regressao
   Scenario: Criação de usuario sem ativação de e-mail
     Given que eu crio os dados de um usuario
     When chamo a api de criação de usuario
     Then deve retornar status code 201
     And deve retornar a mensagem "Usuário registrado."
 
-  @Test @User
+  @Test @User @Regressao
   Scenario Outline: Validar erro ao tentar criar conta com e-mail invalido
     Given que eu crio os dados de um usuario com o email "<email>" invalido
     When chamo a api de criação de usuario
     Then deve retornar status code 422
     And deve retornar a mensagem "<mensagemErro>"
     Examples:
-      | email                  | mensagemErro                                    |
-      | camilagmail.com        | O formato do E-mail está incorreto.             |
-      | camila@gmail@gmail.com | O formato do E-mail está incorreto.             |
-      | a@aaa.com              | O E-mail deve conter entre 10 e 256 caracteres. |
-      | null                   | O E-mail não pode ser vazio ou null.            |
-      | camila @gmail.com      | O formato do E-mail está incorreto.             |
-      | camila@@gmail.com      | O formato do E-mail está incorreto.             |
-      | @gmail.com             | O formato do E-mail está incorreto.             |
-      | camila@.com            | O formato do E-mail está incorreto.             |
-      | camiddddddddddla@      | O formato do E-mail está incorreto.             |
+      | email                  | mensagemErro                                                                                         |
+      | camilagmail.com        | O formato do E-mail está incorreto.                                                                  |
+      | camila@gmail@gmail.com | O formato do E-mail está incorreto.                                                                  |
+      | a@aaa.com              | O E-mail deve conter entre 10 e 256 caracteres.                                                      |
+      | null                   | O E-mail não pode ser vazio ou null.                                                                 |
+      | camila @gmail.com      | O formato do E-mail está incorreto.                                                                  |
+      | camila@@gmail.com      | O formato do E-mail está incorreto.                                                                  |
+      | @gmail.com             | O formato do E-mail está incorreto.                                                                  |
+      | camila@.com            | O formato do E-mail está incorreto.                                                                  |
+      | camiddddddddddla@      | O formato do E-mail está incorreto.                                                                  |
+      | a                      | O formato do E-mail está incorreto.             \|\| O E-mail deve conter entre 10 e 256 caracteres. |
 
-  @Test @User
+  @Test @User @Regressao
   Scenario Outline: Validar erro ao tentar criar conta com senha invalida
     Given que eu crio os dados de um usuario com a senha "<senha>" invalida
     When chamo a api de criação de usuario
@@ -41,7 +42,7 @@ Feature: User
       | 12345678 | Sua senha deve conter pelo menos uma letra maiúscula, uma letra minúscula, um caracter especial e um número.                                                                                                                   |
       | !!!!!!!! | Sua senha deve conter pelo menos uma letra maiúscula, uma letra minúscula, um caracter especial e um número.                                                                                                                   |
 
-  @Test @User
+  @Test @User @Regressao
   Scenario Outline: Validar erro ao tentar criar uma conta com a data de nascimento invalida
     Given que eu crio os dados de um usuario com a data de nascimento "<dataNascimento>" invalida
     When chamo a api de criação de usuario
@@ -58,24 +59,26 @@ Feature: User
       | 1999!-25-05    | Birthday deve ter o formato: yyyy-MM-dd                                                                               |
       | oi             | Birthday deve ter o formato: yyyy-MM-dd                                                                               |
 
-  @Test @User
+  @Test @User @Regressao
   Scenario Outline: Validar erro ao tentar criar uma conta com o nome invalido
     Given que eu crio os dados de um usuario com o nome "<nome>" invalido
     When chamo a api de criação de usuario
     Then deve retornar status code 422
     And deve retornar a mensagem "<mensagemErroNome>"
     Examples:
-      | nome              | mensagemErroNome                                                                                               |
-      | null              | O nome não pode ser vazio ou null.                                                                             |
-      | Camila            | O nome deve conter apenas letras, com um espaço entre os nomes e no minimo dois nomes. exemplo: Joao Silveira. |
-      | Camila 123        | O nome deve conter apenas letras, com um espaço entre os nomes e no minimo dois nomes. exemplo: Joao Silveira. |
-      | Camila_Goncalves  | O nome deve conter apenas letras, com um espaço entre os nomes e no minimo dois nomes. exemplo: Joao Silveira. |
-      | Camila  Goncalves | O nome deve conter apenas letras, com um espaço entre os nomes e no minimo dois nomes. exemplo: Joao Silveira. |
-      | CamilaGoncalves   | O nome deve conter apenas letras, com um espaço entre os nomes e no minimo dois nomes. exemplo: Joao Silveira. |
-      | 1234              | O nome deve conter apenas letras, com um espaço entre os nomes e no minimo dois nomes. exemplo: Joao Silveira. |
-      | !@#$%             | O nome deve conter apenas letras, com um espaço entre os nomes e no minimo dois nomes. exemplo: Joao Silveira. |
+      | nome              | mensagemErroNome                                                                                                                                                  |
+      | null              | O nome não pode ser vazio ou null.                                                                                                                                |
+      | Camila            | O nome deve conter apenas letras, com um espaço entre os nomes e no minimo dois nomes. exemplo: Joao Silveira.                                                    |
+      | Camila 123        | O nome deve conter apenas letras, com um espaço entre os nomes e no minimo dois nomes. exemplo: Joao Silveira.                                                    |
+      | Camila_Goncalves  | O nome deve conter apenas letras, com um espaço entre os nomes e no minimo dois nomes. exemplo: Joao Silveira.                                                    |
+      | Camila  Goncalves | O nome deve conter apenas letras, com um espaço entre os nomes e no minimo dois nomes. exemplo: Joao Silveira.                                                    |
+      | CamilaGoncalves   | O nome deve conter apenas letras, com um espaço entre os nomes e no minimo dois nomes. exemplo: Joao Silveira.                                                    |
+      | 1234              | O nome deve conter apenas letras, com um espaço entre os nomes e no minimo dois nomes. exemplo: Joao Silveira.                                                    |
+      | !@#$%             | O nome deve conter apenas letras, com um espaço entre os nomes e no minimo dois nomes. exemplo: Joao Silveira.                                                    |
+      | a                 | O nome deve conter entre 10 e 256 caracteres. \|\| O nome deve conter apenas letras, com um espaço entre os nomes e no minimo dois nomes. exemplo: Joao Silveira. |
+      |aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa as| O nome deve conter entre 10 e 256 caracteres.|
 
-  @Test @User
+  @Test @User @Regressao
   Scenario Outline: Validar erro ao tentar criar conta com provider e specialty inconsistentes
     Given que eu crio os dados de um usuario com provider "<provider>" e specialty "<specialty>"
     When chamo a api de criação de usuario
@@ -87,3 +90,11 @@ Feature: User
       | true     | null      | Especialidade deve ser preenchido quando provider for true.               |
       | false    | QA        | Especialidade deve ser null ou não declarado quando o provider for false. |
       | false    | Dev       | Especialidade deve ser null ou não declarado quando o provider for false. |
+
+
+  @Test @User @Regressao
+  Scenario: Validar erro ao tentar criar conta com e-mail ja cadastrado
+    Given que eu crio os dados de um usuario com um e-mail já cadastrado
+    When chamo a api de criação de usuario
+    Then deve retornar status code 409
+    And deve retornar a mensagem "Esse e-mail ou número de celular já foi registrado."

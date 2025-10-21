@@ -10,10 +10,12 @@ public class UserSteps {
 
     private UserService userService = new UserService();
     private CriarUsuario criarUsuario;
+    private static String emailCriado;
 
     @Given("que eu crio os dados de um usuario")
     public void criarUserSemAtivarEmail() {
         criarUsuario = new CriarUsuario();
+        emailCriado = criarUsuario.email;
     }
 
     @Given("que eu crio os dados de um usuario com o email {string} invalido")
@@ -48,6 +50,12 @@ public class UserSteps {
         String specialtyValue = "null".equalsIgnoreCase(specialty) ? null : specialty;
         criarUsuario.provider = isProvider;
         criarUsuario.specialty = specialtyValue;
+    }
+
+    @Given("que eu crio os dados de um usuario com um e-mail já cadastrado")
+    public void criarUserComEmailJaExistente() {
+        criarUsuario = new CriarUsuario();
+        criarUsuario.email = emailCriado;
     }
 
     @When("chamo a api de criação de usuario")
