@@ -11,7 +11,6 @@ import requestJson.CriarUsuario;
 public class SharedInstance {
 
     private static SharedInstance instance;
-    private CriarUsuario criarUsuario;
     private Response response;
 
     // Construtor privado para padrão Singleton
@@ -39,30 +38,10 @@ public class SharedInstance {
     }
 
     // ===============================
-    // Métodos relacionados ao CriarUsuario
-    // ===============================
-
-    public void createNewUsuario() {
-        this.criarUsuario = new CriarUsuario();
-    }
-
-    public CriarUsuario getUsuario() {
-        if (this.criarUsuario == null) {
-            this.criarUsuario = new CriarUsuario();
-        }
-        return this.criarUsuario;
-    }
-
-    public void setUsuario(CriarUsuario criarUsuario) {
-        this.criarUsuario = criarUsuario;
-    }
-
-    // ===============================
     // Métodos utilitários
     // ===============================
 
     public void clear() {
-        this.criarUsuario = null;
         this.response = null;
     }
 }

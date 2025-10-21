@@ -1,5 +1,6 @@
 package services;
 
+import requestJson.CriarUsuario;
 import utils.SharedInstance;
 
 public class UserService extends BaseService {
@@ -10,7 +11,7 @@ public class UserService extends BaseService {
     private String userUpdatePasswordEndpoint = "/user/updatePassword";
     private String userEmailActivationEndpoint = "/user/email_activation";
 
-    public void createUser() {
-        this.doPostWithBody(userCreateEndpoint, SharedInstance.getInstance().getUsuario().toJson());
+    public void createUser(CriarUsuario criarUsuario) {
+        this.doPostWithBody(userCreateEndpoint, criarUsuario.toJson());
     }
 }
