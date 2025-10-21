@@ -16,8 +16,7 @@
     </properties>
 
     <dependencies>
-
-        <!-- ✅ REST Assured (para testes de API) -->
+        <!-- ✅ REST Assured -->
         <dependency>
             <groupId>io.rest-assured</groupId>
             <artifactId>rest-assured</artifactId>
@@ -25,7 +24,7 @@
             <scope>test</scope>
         </dependency>
 
-        <!-- ✅ JSON Path (para extrair dados do retorno) -->
+        <!-- ✅ JSON Path -->
         <dependency>
             <groupId>io.rest-assured</groupId>
             <artifactId>json-path</artifactId>
@@ -33,7 +32,7 @@
             <scope>test</scope>
         </dependency>
 
-        <!-- ✅ Jackson (para serialização/deserialização JSON) -->
+        <!-- ✅ Jackson -->
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-databind</artifactId>
@@ -66,26 +65,25 @@
             <version>1.10.2</version>
         </dependency>
 
-        <!-- ✅ Apache Commons (para manipulação de strings, etc.) -->
+        <!-- ✅ Apache Commons -->
         <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-lang3</artifactId>
             <version>3.14.0</version>
         </dependency>
 
-        <!-- ✅ Allure Report (opcional, mas recomendado para relatórios bonitos) -->
+        <!-- ✅ Allure Report (opcional) -->
         <dependency>
             <groupId>io.qameta.allure</groupId>
             <artifactId>allure-cucumber7-jvm</artifactId>
             <version>2.27.0</version>
         </dependency>
-
     </dependencies>
 
     <build>
         <plugins>
 
-            <!-- Plugin para rodar testes -->
+            <!-- ✅ Plugin único do Surefire, com geração de relatórios -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
@@ -95,16 +93,12 @@
                         <include>**/*Test.java</include>
                         <include>**/*Runner.java</include>
                     </includes>
-                </configuration>
-            </plugin>
-
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-surefire-plugin</artifactId>
-                <version>3.2.5</version>
-                <configuration>
                     <systemPropertyVariables>
-                        <cucumber.plugin>pretty, html:target/cucumber-reports.html, json:target/cucumber.json</cucumber.plugin>
+                        <cucumber.plugin>
+                            pretty,
+                            html:target/cucumber-reports/index.html,
+                            json:target/cucumber-reports/cucumber.json
+                        </cucumber.plugin>
                     </systemPropertyVariables>
                 </configuration>
             </plugin>
