@@ -1,4 +1,4 @@
-name: Run API Tests
+name: Run API Tests - User Endpoint
 
 run-name: User Endpoint
 
@@ -34,7 +34,7 @@ jobs:
             ${{ runner.os }}-maven-
 
 
-      - name: Run Cucumber API Tests
+      - name: Run User Tests
         run: mvn clean test -Dcucumber.filter.tags="@User"
 
 
